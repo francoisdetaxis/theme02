@@ -3,10 +3,10 @@
         <img class="mb-4" src="../../assets/logo.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
         <label for="signupInputEmail" class="sr-only">Email address</label>
-        <input type="email" id="signupInputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="signupInputPassword" class="sr-only">Password</label>
-        <input type="password" id="signupInputPassword" class="form-control" placeholder="Username" required>
-        <button v-on:click="createUser" class="btn btn-lg btn-primary btn-block" type="submit" >Sign up</button>
+        <input v-model="signupInputEmail" type="email" id="signupInputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="signupInputUsername" class="sr-only">Password</label>
+        <input v-model="signupInputUsername" type="text" id="signupInputUsername" class="form-control" placeholder="Username" required>
+        <button v-on:click="createUser" class="btn btn-lg btn-primary btn-block" type="button" >Sign up</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
     </form>
 </template>
@@ -14,26 +14,33 @@
 <script>
     export default {
         name: "Signup",
+        data() {
+            return {
+                signupInputEmail: null,
+                signupInputUsername: null
+            }
+        },
         methods: {
             createUser (){
-                var myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/json");
 
-                var raw = JSON.stringify({"users":{"username":"test","email":"123@man"}});
+                //debug
+                // console.log(this.signupInputEmail)
+                // console.log(this.signupInputUsername)
 
-                var requestOptions = {
-                    method: 'POST',
-                    headers: myHeaders,
-                    body: raw,
-                    redirect: 'follow'
-                };
+                const axios = require('axios');
 
-                console.log("**********************************************************************************")
-
-                fetch("http://localhost:4000/api/users", requestOptions)
-                    .then(response => response.text())
-                    .then(result => console.log(result))
-                    .catch(error => console.log('error', error));
+                axios.post('http://localhost:4000/api/users', {
+                    users: {
+                        username: this.signupInputUsername,
+                        email: this.signupInputEmail
+                    }
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     }

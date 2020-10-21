@@ -1465,6 +1465,13 @@
 "aws4@^1.8.0":
   "version" "1.10.1"
 
+"axios@^0.20.0":
+  "integrity" "sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.20.0.tgz"
+  "version" "0.20.0"
+  dependencies:
+    "follow-redirects" "^1.10.0"
+
 "babel-cli@^6.3.17":
   "integrity" "sha1-UCq1SHTX24itALiHoGODzgPQAvE="
   "resolved" "https://registry.npmjs.org/babel-cli/-/babel-cli-6.26.0.tgz"
@@ -3869,7 +3876,7 @@
     "inherits" "^2.0.3"
     "readable-stream" "^2.3.6"
 
-"follow-redirects@^1.0.0":
+"follow-redirects@^1.0.0", "follow-redirects@^1.10.0":
   "version" "1.13.0"
 
 "for-in@^1.0.1", "for-in@^1.0.2":

@@ -6,7 +6,7 @@
         <input type="email" id="loginInputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="loginInputPassword" class="sr-only">Password</label>
         <input type="password" id="loginInputPassword" class="form-control" placeholder="Username" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
     </form>
 </template>
