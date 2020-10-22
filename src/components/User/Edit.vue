@@ -49,9 +49,26 @@ export default {
       };
 
       fetch("http://localhost:4000/api/users/" + this.user.id, requestOptions)
+          .then(function(response) {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response;
+          })
           .then(response => response.text())
-          .then(result => console.log(result))
+          .then(result => {
+            console.log(result)
+            result = JSON.parse(result);
+            console.log(result)
+            this.updateCurrentUser(result.data);
+          })
           .catch(error => console.log('error', error));
+    },
+    updateCurrentUser: function () {
+      this.$emit('successful-logout');
+    },
+    updateCurrentComponent: function (currentComponent) {
+      this.$emit('change-component', currentComponent);
     },
     deleteUser() {
 
@@ -61,8 +78,24 @@ export default {
       };
 
       fetch("http://localhost:4000/api/users/" + this.user.id, requestOptions)
+          .then(function(response) {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response;
+          })
           .then(response => response.text())
-          .then(result => console.log(result))
+          .then(result => {
+            //TODO on veut juste savoir si la requete a fonctionner
+            console.log(result)
+            if (result) {
+              result = JSON.parse(result);
+              console.log(result)
+            }
+            //on on emet un event  successful-logout ---> on se deconnecte. Les donnes de l'utilisateur sont reset dans App.vue (le parent)
+            this.updateCurrentUser();
+            this.updateCurrentComponent('Homepage');
+          })
           .catch(error => console.log('error', error));
     }
   }

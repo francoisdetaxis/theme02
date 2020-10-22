@@ -19,6 +19,7 @@
               <a v-if="showLogin" v-on:click="clickLogin" class="dropdown-item">Log in</a>
               <a v-if="showSignup" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
               <a v-if="showEdit" v-on:click="clickEdit" class="dropdown-item">Edit</a>
+              <a v-if="showEdit" v-on:click="userLogout" class="dropdown-item">Log out</a>
             </div>
           </li>
           <li class="nav-item">
@@ -30,7 +31,8 @@
         </ul>
       </div>
     </nav>
-    <component v-bind:is="currentComponent" @successful-login="userLogin" @change-component="updateCurrentComponent" :user="user"></component>
+    <component v-bind:is="currentComponent" @successful-login="userLogin" @successful-logout="userLogout"
+               @change-component="updateCurrentComponent" :user="user"></component>
   </div>
 </template>
 
@@ -61,6 +63,11 @@ export default {
       this.showLogin = false;
       this.showSignup = false;
     },
+    userLogout() {
+      this.user = {
+        username: "Log in", email: "", id: -1
+      };
+    },
     updateCurrentComponent(componentName) {
       this.currentComponent = componentName;
     },
@@ -82,13 +89,14 @@ export default {
     clickWorkingtime() {
       this.currentComponent = "Workingtime";
     }
-  },
+  }
+  ,
   data() {
     return {
       user: {
         username: "Log in",
         email: "",
-        id:  -1
+        id: -1
       },
       currentComponent: "Homepage",
       showEdit: false,
