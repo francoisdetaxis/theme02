@@ -35,19 +35,26 @@ export default {
       };
 
       fetch('http://localhost:4000/api/users?email=' + this.loginInputEmail + '&username=' + this.loginInputUsername, requestOptions)
+          .then(function(response) {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response;
+          })
           .then(response => response.text())
           .then(result => {
             console.log(result)
-            // console.log(this)
-            // this.loginInputUsername = "";
-            // this.loginInputEmail = "";
+            result = JSON.parse(result);
+            console.log(result)
+            // result looks like this:
+            //{"data": {"email": "123@man", "id": 1, "username": "test"}}
             this.updateCurrentComponent('Homepage');
-            this.updateCurrentUser(this.loginInputUsername);
+            this.updateCurrentUser(result.data);
           })
           .catch(error => console.log('error', error));
     },
-    updateCurrentUser: function (currentUser) {
-      this.$emit('successful-login', currentUser);
+    updateCurrentUser: function (loggedUser) {
+      this.$emit('successful-login', loggedUser);
     },
     updateCurrentComponent: function (currentComponent) {
       this.$emit('change-component', currentComponent);

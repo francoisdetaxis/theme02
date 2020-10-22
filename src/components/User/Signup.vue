@@ -48,6 +48,12 @@ export default {
       };
 
       fetch("http://localhost:4000/api/users", requestOptions)
+          .then(function(response) {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response;
+          })
           .then(response => response.text())
           .then(result => {
             console.log(result)
