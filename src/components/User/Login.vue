@@ -3,17 +3,53 @@
         <img class="mb-4" src="../../assets/logo.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="loginInputEmail" class="sr-only">Email address</label>
-        <input type="email" id="loginInputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="loginInputPassword" class="sr-only">Password</label>
-        <input type="password" id="loginInputPassword" class="form-control" placeholder="Username" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <input v-model="loginInputEmail" type="email" id="loginInputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="loginInputUsername" class="sr-only">Password</label>
+        <input v-model="loginInputUsername" type="text" id="loginInputUsername" class="form-control" placeholder="Username" required>
+        <button v-on:click="getUser" class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
     </form>
 </template>
 
 <script>
     export default {
-        name: "Login"
+        name: "Login",
+        data() {
+            return {
+                loginInputUsername: null,
+                loginInputEmail: null
+            }
+        },
+        methods: {
+            getUser (){
+
+                //debug
+                console.log(this.loginInputUsername)
+                console.log(this.loginInputEmail)
+
+                const axios = require('axios');
+                // let result = false;
+
+                // Make a request for a user with a given ID
+                axios.get('http://localhost:4000/api/users?email='+this.loginInputEmail +'&username=' + this.loginInputUsername)
+                    .then(function (response) {
+                        // handle success
+                        console.log(response);
+                        console.log();
+
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                        this.loginInputUsername = " ";
+                        this.loginInputEmail = " ";
+                    });
+
+            }
+        }
     }
 </script>
 
