@@ -13,16 +13,16 @@
             <a v-on:click="clickHome" class="nav-link">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a v-if="showWhenLoggedin" v-on:click="clickClocking" class="nav-link">Clocking <span class="sr-only">(current)</span></a>
+            <a v-if="userLoggedIn" v-on:click="clickClocking" class="nav-link">Clocking <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a v-if="showWhenLoggedOut" v-on:click="clickLogin" class="dropdown-item">Log in</a>
-              <a v-if="showWhenLoggedOut" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
-              <a v-if="showWhenLoggedin" v-on:click="clickEdit" class="dropdown-item">Edit</a>
-              <a v-if="showWhenLoggedin" v-on:click="userLogout" class="dropdown-item">Log out</a>
+              <a v-if="userLoggedOut" v-on:click="clickLogin" class="dropdown-item">Log in</a>
+              <a v-if="userLoggedOut" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
+              <a v-if="userLoggedIn" v-on:click="clickEdit" class="dropdown-item">Edit</a>
+              <a v-if="userLoggedIn" v-on:click="userLogout" class="dropdown-item">Log out</a>
             </div>
           </li>
         </ul>
@@ -52,13 +52,16 @@ export default {
   methods: {
     userLogin(loggedUser) {
       this.user = loggedUser;
-      this.showWhenLoggedin = true;
-      this.showWhenLoggedOut = false;
+      this.userLoggedIn = true;
+      this.userLoggedOut = false;
     },
     userLogout() {
       this.user = {
         username: "Log in", email: "", id: -1
       };
+      this.userLoggedIn = false;
+      this.userLoggedOut = true;
+      this.currentComponent = "Homepage"
     },
     updateCurrentComponent(componentName) {
       this.currentComponent = componentName;
@@ -88,8 +91,8 @@ export default {
         id: -1
       },
       currentComponent: "Homepage",
-      showWhenLoggedin: false,
-      showWhenLoggedOut: true
+      userLoggedIn: false,
+      userLoggedOut: true
     }
   }
 }
