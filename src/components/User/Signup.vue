@@ -23,6 +23,12 @@ export default {
     }
   },
   methods: {
+    updateCurrentUser: function (loggedUser) {
+      this.$emit('successful-login', loggedUser);
+    },
+    updateCurrentComponent: function (currentComponent) {
+      this.$emit('change-component', currentComponent);
+    },
     createUser() {
 
       //debug
@@ -57,9 +63,10 @@ export default {
           .then(response => response.text())
           .then(result => {
             console.log(result)
-            // console.log(this)
-            this.signupInputUsername = "";
-            this.signupInputEmail = "";
+            result = JSON.parse(result);
+            console.log(result)
+            this.updateCurrentComponent('Homepage');
+            this.updateCurrentUser(result.data);
           })
           .catch(error => console.log('error', error));
     }
