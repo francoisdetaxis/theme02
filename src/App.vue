@@ -16,14 +16,15 @@
             <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">{{ currentUser }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a v-on:click="clickLogin" class="dropdown-item">Log in</a>
-              <a v-on:click="clickSignup" class="dropdown-item">Sign up</a>
+              <a v-if="showLogin" v-on:click="clickLogin" class="dropdown-item">Log in</a>
+              <a v-if="showSignup" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
+              <a v-if="showEdit" v-on:click="clickEdit" class="dropdown-item">Edit</a>
             </div>
           </li>
         </ul>
       </div>
     </nav>
-    <component v-bind:is="currentComponent" @current-user="updateCurrentUser"></component>
+    <component v-bind:is="currentComponent" @successful-login="userLogin" @change-component="updateCurrentComponent" :currentUser="currentUser"></component>
   </div>
 </template>
 
@@ -31,19 +32,27 @@
 import Signup from "@/components/User/Signup";
 import Homepage from "@/components/Homepage";
 import Login from "@/components/User/Login";
+import Edit from "@/components/User/Edit";
 
 export default {
   name: 'App',
   components: {
     Homepage,
     Signup,
-    Login
+    Login,
+    Edit
   },
   methods: {
-    updateCurrentUser(currentUser) {
-      console.log("INSIDE updateCurrentUser")
-      console.log(currentUser);
+    userLogin(currentUser) {
+      // console.log("INSIDE updateCurrentUser")
+      // console.log(currentUser);
       this.currentUser = currentUser;
+      this.showEdit = true;
+      this.showLogin = false;
+      this.showSignup = false;
+    },
+    updateCurrentComponent(componentName) {
+      this.currentComponent = componentName;
     },
     clickHome() {
       this.currentComponent = "Homepage";
@@ -53,12 +62,18 @@ export default {
     },
     clickSignup() {
       this.currentComponent = "Signup";
+    },
+    clickEdit() {
+      this.currentComponent = "Edit";
     }
   },
   data() {
     return {
       currentComponent: "Homepage",
-      currentUser: "Log in"
+      currentUser: "Log in",
+      showEdit: false,
+      showLogin: true,
+      showSignup: true
     }
   }
 }
