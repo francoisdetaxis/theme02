@@ -14,7 +14,7 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">{{ currentUser }}</a>
+               aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
               <a v-if="showLogin" v-on:click="clickLogin" class="dropdown-item">Log in</a>
               <a v-if="showSignup" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
@@ -24,7 +24,7 @@
         </ul>
       </div>
     </nav>
-    <component v-bind:is="currentComponent" @successful-login="userLogin" @change-component="updateCurrentComponent" :currentUser="currentUser"></component>
+    <component v-bind:is="currentComponent" @successful-login="userLogin" @change-component="updateCurrentComponent" :user="user"></component>
   </div>
 </template>
 
@@ -43,10 +43,8 @@ export default {
     Edit
   },
   methods: {
-    userLogin(currentUser) {
-      // console.log("INSIDE updateCurrentUser")
-      // console.log(currentUser);
-      this.currentUser = currentUser;
+    userLogin(loggedUser) {
+      this.user = loggedUser;
       this.showEdit = true;
       this.showLogin = false;
       this.showSignup = false;
@@ -69,8 +67,12 @@ export default {
   },
   data() {
     return {
+      user: {
+        username: "Log in",
+        email: "",
+        id:  -1
+      },
       currentComponent: "Homepage",
-      currentUser: "Log in",
       showEdit: false,
       showLogin: true,
       showSignup: true
