@@ -22,6 +22,7 @@ export default {
       loginInputEmail: null
     }
   },
+  props: ['current-user', 'current-component'],
   methods: {
     getUser() {
 
@@ -38,13 +39,19 @@ export default {
           .then(response => response.text())
           .then(result => {
             console.log(result)
-            console.log(this)
+            // console.log(this)
             // this.loginInputUsername = "";
             // this.loginInputEmail = "";
-            this.$parent.currentUser = this.loginInputUsername;
-            this.$parent.currentComponent = "Homepage";
+            this.updateCurrentComponent('Homepage');
+            this.updateCurrentUser(this.loginInputUsername);
           })
           .catch(error => console.log('error', error));
+    },
+    updateCurrentUser: function (currentUser) {
+      this.$emit('current-user', currentUser);
+    },
+    updateCurrentComponent: function (currentComponent) {
+      this.$emit('current-component', currentComponent);
     }
   }
 }
