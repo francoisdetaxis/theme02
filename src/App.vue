@@ -26,10 +26,10 @@
             </div>
           </li>
           <li class="nav-item">
-            <a v-if="showEdit" v-on:click="clickWorkingtimes" class="nav-link">Working Times</a>
+            <a v-if="userLoggedIn" v-on:click="clickWorkingtimes" class="nav-link">Working Times</a>
           </li>
           <li class="nav-item">
-            <a v-if="showEdit" v-on:click="clickWorkingtime" class="nav-link">Working Time</a>
+            <a v-if="userLoggedIn" v-on:click="clickWorkingtime" class="nav-link">Working Time</a>
           </li>
         </ul>
       </div>
@@ -46,8 +46,6 @@ import Login from "@/components/User/Login";
 import Edit from "@/components/User/Edit";
 import Workingtimes from "@/components/Workingtimes/Workingtimes";
 import Workingtime from "@/components/Workingtime/Workingtime";
-
-
 import Clocking from "@/components/Clocking/Clocking";
 
 export default {
@@ -57,8 +55,7 @@ export default {
     Signup,
     Login,
     Edit,
-    Clocking
-    Edit,
+    Clocking,
     Workingtimes,
     Workingtime
   },
