@@ -12,14 +12,17 @@
           <li class="nav-item active">
             <a v-on:click="clickHome" class="nav-link">Home <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item active">
+            <a v-if="showWhenLoggedin" v-on:click="clickClocking" class="nav-link">Clocking <span class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a v-if="showLogin" v-on:click="clickLogin" class="dropdown-item">Log in</a>
-              <a v-if="showSignup" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
-              <a v-if="showEdit" v-on:click="clickEdit" class="dropdown-item">Edit</a>
-              <a v-if="showEdit" v-on:click="userLogout" class="dropdown-item">Log out</a>
+              <a v-if="showWhenLoggedOut" v-on:click="clickLogin" class="dropdown-item">Log in</a>
+              <a v-if="showWhenLoggedOut" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
+              <a v-if="showWhenLoggedin" v-on:click="clickEdit" class="dropdown-item">Edit</a>
+              <a v-if="showWhenLoggedin" v-on:click="userLogout" class="dropdown-item">Log out</a>
             </div>
           </li>
         </ul>
@@ -35,6 +38,7 @@ import Signup from "@/components/User/Signup";
 import Homepage from "@/components/Homepage";
 import Login from "@/components/User/Login";
 import Edit from "@/components/User/Edit";
+import Clocking from "@/components/Clocking/Clocking";
 
 export default {
   name: 'App',
@@ -42,14 +46,14 @@ export default {
     Homepage,
     Signup,
     Login,
-    Edit
+    Edit,
+    Clocking
   },
   methods: {
     userLogin(loggedUser) {
       this.user = loggedUser;
-      this.showEdit = true;
-      this.showLogin = false;
-      this.showSignup = false;
+      this.showWhenLoggedin = true;
+      this.showWhenLoggedOut = false;
     },
     userLogout() {
       this.user = {
@@ -61,6 +65,9 @@ export default {
     },
     clickHome() {
       this.currentComponent = "Homepage";
+    },
+    clickClocking() {
+      this.currentComponent = "Clocking";
     },
     clickLogin() {
       this.currentComponent = "Login";
@@ -81,9 +88,8 @@ export default {
         id: -1
       },
       currentComponent: "Homepage",
-      showEdit: false,
-      showLogin: true,
-      showSignup: true
+      showWhenLoggedin: false,
+      showWhenLoggedOut: true
     }
   }
 }
