@@ -1,6 +1,6 @@
 <template>
   <form class="form-signin">
-    <img class="mb-4" src="../../assets/logo.png" alt="" width="72" height="72">
+    <img class="mb-4" src="../../assets/logo.png" alt="" width="250" height="250">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="loginInputEmail" class="sr-only">Email address</label>
     <input v-model="loginInputEmail" type="email" id="loginInputEmail" class="form-control"
@@ -22,7 +22,6 @@ export default {
       loginInputEmail: null
     }
   },
-  props: ['current-user', 'current-component'],
   methods: {
     getUser() {
 
@@ -48,10 +47,10 @@ export default {
           .catch(error => console.log('error', error));
     },
     updateCurrentUser: function (currentUser) {
-      this.$emit('current-user', currentUser);
+      this.$emit('successful-login', currentUser);
     },
     updateCurrentComponent: function (currentComponent) {
-      this.$emit('current-component', currentComponent);
+      this.$emit('change-component', currentComponent);
     }
   }
 }
