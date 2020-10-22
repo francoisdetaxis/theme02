@@ -1,3 +1,5 @@
+import Raphael from 'raphael/raphael'
+global.Raphael = Raphael
 import Vue from 'vue'
 import App from './App.vue'
 import Grid from 'gridjs-vue'

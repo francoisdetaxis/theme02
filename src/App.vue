@@ -12,21 +12,24 @@
           <li class="nav-item active">
             <a v-on:click="clickHome" class="nav-link">Home <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item active">
+            <a v-if="userLoggedIn" v-on:click="clickClocking" class="nav-link">Clocking <span class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown04" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a v-if="showLogin" v-on:click="clickLogin" class="dropdown-item">Log in</a>
-              <a v-if="showSignup" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
-              <a v-if="showEdit" v-on:click="clickEdit" class="dropdown-item">Edit</a>
-              <a v-if="showEdit" v-on:click="userLogout" class="dropdown-item">Log out</a>
+              <a v-if="userLoggedOut" v-on:click="clickLogin" class="dropdown-item">Log in</a>
+              <a v-if="userLoggedOut" v-on:click="clickSignup" class="dropdown-item">Sign up</a>
+              <a v-if="userLoggedIn" v-on:click="clickEdit" class="dropdown-item">Edit</a>
+              <a v-if="userLoggedIn" v-on:click="userLogout" class="dropdown-item">Log out</a>
             </div>
           </li>
           <li class="nav-item">
-            <a v-if="showEdit" v-on:click="clickWorkingtimes" class="nav-link">Working Times</a>
+            <a v-if="userLoggedIn" v-on:click="clickWorkingtimes" class="nav-link">Working Times</a>
           </li>
           <li class="nav-item">
-            <a v-if="showEdit" v-on:click="clickWorkingtime" class="nav-link">Working Time</a>
+            <a v-if="userLoggedIn" v-on:click="clickWorkingtime" class="nav-link">Working Time</a>
           </li>
         </ul>
       </div>
@@ -43,8 +46,7 @@ import Login from "@/components/User/Login";
 import Edit from "@/components/User/Edit";
 import Workingtimes from "@/components/Workingtimes/Workingtimes";
 import Workingtime from "@/components/Workingtime/Workingtime";
-
-
+import Clocking from "@/components/Clocking/Clocking";
 
 export default {
   name: 'App',
@@ -53,26 +55,32 @@ export default {
     Signup,
     Login,
     Edit,
+    Clocking,
     Workingtimes,
     Workingtime
   },
   methods: {
     userLogin(loggedUser) {
       this.user = loggedUser;
-      this.showEdit = true;
-      this.showLogin = false;
-      this.showSignup = false;
+      this.userLoggedIn = true;
+      this.userLoggedOut = false;
     },
     userLogout() {
       this.user = {
         username: "Log in", email: "", id: -1
       };
+      this.userLoggedIn = false;
+      this.userLoggedOut = true;
+      this.currentComponent = "Homepage"
     },
     updateCurrentComponent(componentName) {
       this.currentComponent = componentName;
     },
     clickHome() {
       this.currentComponent = "Homepage";
+    },
+    clickClocking() {
+      this.currentComponent = "Clocking";
     },
     clickLogin() {
       this.currentComponent = "Login";
@@ -99,9 +107,8 @@ export default {
         id: -1
       },
       currentComponent: "Homepage",
-      showEdit: false,
-      showLogin: true,
-      showSignup: true
+      userLoggedIn: false,
+      userLoggedOut: true
     }
   }
 }
