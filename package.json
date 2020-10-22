@@ -8,9 +8,11 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vue/compiler-sfc": "^3.0.2",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
+    "gridjs-vue": "^0.5.2",
     "moment": "^2.29.1",
     "vue": "^2.6.11",
     "vue-generate-component": "^3.0.1",
