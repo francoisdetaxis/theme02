@@ -24,27 +24,49 @@
         methods: {
             onStartInputWorkingTime() {
                 {
+                    var currentDateWithFormat = new Date().toLocaleString("fr-FR").toJSON().slice(0,19).replace(/T/g,' ');
                     var myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
 
-                    var raw = JSON.stringify({
+                    var rawWorkingTimes = JSON.stringify({
                         "workingtimes":
                             {
-                                "end": "2020-10-27 18:15:18",
-                                "start": "2020-10-27 18:15:18"
+                                "end": currentDateWithFormat,
+                                "start": currentDateWithFormat
                             }
                     });
 
-                    var requestOptions = {
+                    var requestOptionsWorkingTimes = {
                         method: 'POST',
                         headers: myHeaders,
-                        body: raw,
+                        body: rawWorkingTimes,
                         redirect: 'follow'
                     };
 
-                    fetch("http://localhost:4000/api/workingtimes/" + this.user.id, requestOptions)
+                    var rawClocks = JSON.stringify({
+                        "clocks":
+                            {
+                                "status": true,
+                                "time": currentDateWithFormat
+                            }
+                    });
+
+                    var requestOptionsClocks = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: rawClocks,
+                        redirect: 'follow'
+                    };
+
+                    fetch("http://localhost:4000/api/workingtimes/" + this.user.id, requestOptionsWorkingTimes)
                         .then(response => response.text())
-                        .then(result => console.log(result))
+                        .then(result => {
+                            console.log(result)
+                            fetch("http://localhost:4000/api/clocks/" + this.user.id, requestOptionsClocks)
+                                .then(response => response.text())
+                                .then(result => console.log(result))
+                                        .catch(error => console.log('error', error))
+                        })
                         .catch(error => console.log('error', error));
                 }
             },
