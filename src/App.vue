@@ -25,6 +25,12 @@
               <a v-if="userLoggedIn" v-on:click="userLogout" class="dropdown-item">Log out</a>
             </div>
           </li>
+          <li class="nav-item">
+            <a v-if="showEdit" v-on:click="clickWorkingtimes" class="nav-link">Working Times</a>
+          </li>
+          <li class="nav-item">
+            <a v-if="showEdit" v-on:click="clickWorkingtime" class="nav-link">Working Time</a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -38,6 +44,10 @@ import Signup from "@/components/User/Signup";
 import Homepage from "@/components/Homepage";
 import Login from "@/components/User/Login";
 import Edit from "@/components/User/Edit";
+import Workingtimes from "@/components/Workingtimes/Workingtimes";
+import Workingtime from "@/components/Workingtime/Workingtime";
+
+
 import Clocking from "@/components/Clocking/Clocking";
 
 export default {
@@ -48,6 +58,9 @@ export default {
     Login,
     Edit,
     Clocking
+    Edit,
+    Workingtimes,
+    Workingtime
   },
   methods: {
     userLogin(loggedUser) {
@@ -80,6 +93,12 @@ export default {
     },
     clickEdit() {
       this.currentComponent = "Edit";
+    },
+    clickWorkingtimes() {
+      this.currentComponent = "Workingtimes";
+    },
+    clickWorkingtime() {
+      this.currentComponent = "Workingtime";
     }
   }
   ,
