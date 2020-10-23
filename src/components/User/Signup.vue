@@ -26,9 +26,6 @@ export default {
     updateCurrentUser: function (loggedUser) {
       this.$emit('successful-login', loggedUser);
     },
-    updateCurrentComponent: function (currentComponent) {
-      this.$emit('change-component', currentComponent);
-    },
     createUser() {
 
       //debug
@@ -65,8 +62,8 @@ export default {
             console.log(result)
             result = JSON.parse(result);
             console.log(result)
-            this.updateCurrentComponent('Homepage');
             this.updateCurrentUser(result.data);
+            this.$router.push("/");
           })
           .catch(error => console.log('error', error));
     }
