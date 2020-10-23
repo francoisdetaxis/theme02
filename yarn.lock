@@ -10468,6 +10468,11 @@
     "raphael" "^2.2.7"
     "vue" "^2.1.0"
 
+"vue-router@^3.4.7":
+  "integrity" "sha512-CbHXue5BLrDivOk5O4eZ0WT4Yj8XwdXa4kCnsEIOzYUPF/07ZukayA2jGxDCJxLc9SgVQX9QX0OuGOwGlVB4Qg=="
+  "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-3.4.7.tgz"
+  "version" "3.4.7"
+
 "vue-runtime-helpers@1.1.2":
   "integrity" "sha512-pZfGp+PW/IXEOyETE09xQHR1CKkR9HfHZdnMD/FVLUNI+HxYTa82evx5WrF6Kz4s82qtqHvMZ8MZpbk2zT2E1Q=="
   "resolved" "https://registry.npmjs.org/vue-runtime-helpers/-/vue-runtime-helpers-1.1.2.tgz"

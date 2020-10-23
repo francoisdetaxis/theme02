@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     getUser() {
-
       //debug
       console.log(this.loginInputUsername)
       console.log(this.loginInputEmail)
@@ -48,16 +47,13 @@ export default {
             console.log(result)
             // result looks like this:
             //{"data": {"email": "123@man", "id": 1, "username": "test"}}
-            this.updateCurrentComponent('Homepage');
             this.updateCurrentUser(result.data);
+            this.$router.push("/");
           })
           .catch(error => console.log('error', error));
     },
     updateCurrentUser: function (loggedUser) {
       this.$emit('successful-login', loggedUser);
-    },
-    updateCurrentComponent: function (currentComponent) {
-      this.$emit('change-component', currentComponent);
     }
   }
 }

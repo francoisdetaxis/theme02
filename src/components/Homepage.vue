@@ -5,9 +5,6 @@
       <h1 class="cover-heading">HOMEPAGE</h1>
       <p v-if="showUserName" class="lead">Welcome to Time Manager, {{ user.username }}. Let's get started !</p>
       <p v-else class="lead">Welcome to Time Manager. Let's get started !</p>
-      <p class="lead">
-        <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-      </p>
     </main>
   </div>
 </template>
@@ -17,12 +14,9 @@ export default {
   name: "Homepage",
   mounted() {
     console.log(this.user)
-    // console.log(this.$props.user)
-    // console.log(this)
     this.showUserName = this.user.username !== "Log in";
   },
   props: {
-    // currentUser: String,
     user: Object
   },
   methods: {

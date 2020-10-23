@@ -60,15 +60,9 @@ export default {
             console.log(result)
             result = JSON.parse(result);
             console.log(result)
-            this.updateCurrentUser(result.data);
+            this.$emit('successful-login', result.data);
           })
           .catch(error => console.log('error', error));
-    },
-    updateCurrentUser: function () {
-      this.$emit('successful-logout');
-    },
-    updateCurrentComponent: function (currentComponent) {
-      this.$emit('change-component', currentComponent);
     },
     deleteUser() {
 
@@ -93,8 +87,8 @@ export default {
               console.log(result)
             }
             //on on emet un event  successful-logout ---> on se deconnecte. Les donnes de l'utilisateur sont reset dans App.vue (le parent)
-            this.updateCurrentUser();
-            this.updateCurrentComponent('Homepage');
+            this.$emit('successful-logout');
+            // this.$router.push("/");
           })
           .catch(error => console.log('error', error));
     }
