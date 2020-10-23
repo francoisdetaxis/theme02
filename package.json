@@ -11,6 +11,7 @@
     "@vue/compiler-sfc": "^3.0.2",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.3",
+    "bootstrap-vue": "^2.18.1",
     "core-js": "^3.6.5",
     "gridjs-vue": "^0.5.2",
     "moment": "^2.29.1",
