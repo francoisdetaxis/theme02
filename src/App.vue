@@ -30,9 +30,6 @@
           <li class="nav-item">
             <router-link to="/workingtimes" v-if="userLoggedIn" class="nav-link">Working Times</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/workingtime" v-if="userLoggedIn" class="nav-link">Working Time</router-link>
-          </li>
         </ul>
       </div>
     </nav>

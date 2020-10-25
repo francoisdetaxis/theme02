@@ -1,16 +1,19 @@
 <template>
     <div>
         <h1>WorkingTimes</h1>
+        <button v-on:click="onStartInputWorkingTime" class="btn btn-lg btn-primary btn-block" type="button">Start working time</button>
+
         <b-table :items="items" :fields="fields" striped responsive="sm" hover>
             <template v-slot:cell(actions)="data">
-                <b-button size="sm" @click="onEndWorkingtimes(data.item.id)" class="mr-1" variant="warning">
+                <button @click="onEndWorkingtimes(data.item.id)" type="button" class="btn btn-warning">
                     End Workingtimes
-                </b-button>
-                <b-button size="sm" @click="onDeleteWorkingtimes(data.item.id)" class="mr-1" variant="warning">
+                </button>
+                <button @click="onDeleteWorkingtimes(data.item.id)" type="button" class="btn btn-danger">
                     Delete Workingtimes
-                </b-button>
+                </button>
             </template>
         </b-table>
+        <h3 v-if="items.length == 0"> Aucun Workingtimes pour {{user.username}} {{user.id}}</h3>
     </div>
 </template>
 
@@ -26,18 +29,74 @@
         data() {
             return {
                 items: [],
-                fields: ['id', 'start', 'end', 'actions']
+                fields: ['id', 'start', 'end', 'actions'],
+                startInputWorkingTime: null,
+                endInputWorkingtime: null
             }
         },
 
         methods: {
+            onStartInputWorkingTime: function () {
+                {
+                    var currentDateWithFormat = new Date().toJSON().slice(0, 19).replace(/T/g, ' ');
+                    this.startInputWorkingTime = currentDateWithFormat;
+                    var myHeaders = new Headers();
+                    myHeaders.append("Content-Type", "application/json");
+
+                    var rawWorkingTimes = JSON.stringify({
+                        "workingtimes":
+                            {
+                                "end": currentDateWithFormat,
+                                "start": currentDateWithFormat
+                            }
+                    });
+
+                    var requestOptionsWorkingTimes = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: rawWorkingTimes,
+                        redirect: 'follow'
+                    };
+
+                    var rawClocks = JSON.stringify({
+                        "clocks":
+                            {
+                                "status": true,
+                                "time": currentDateWithFormat
+                            }
+                    });
+
+                    var requestOptionsClocks = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: rawClocks,
+                        redirect: 'follow'
+                    };
+
+                    fetch("http://localhost:4000/api/workingtimes/" + this.user.id, requestOptionsWorkingTimes)
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log(result)
+                            fetch("http://localhost:4000/api/clocks/" + this.user.id, requestOptionsClocks)
+                                .then(response => response.text())
+                                .then(result => {
+                                    console.log(result);
+                                    this.getWorkingTimesData();
+                                    }
+                                )
+                                .catch(error => console.log('error', error))
+                        })
+                        .catch(error => console.log('error', error));
+                }
+            },
+
             getWorkingTimesData(){
 
                 var requestOptions = {
                     method: 'GET',
                     redirect: 'follow'
                 };
-                fetch("http://localhost:4000/api/workingtimes/" + this.user.id, requestOptions)
+                fetch("http://localhost:4000/api/workingtimes/" + this.user.id + "?start=2000-01-01 01:01:01&end=9000-01-01 01:01:01", requestOptions)
                     .then(function (response) {
                         if (!response.ok) {
                             throw Error(response.statusText);
@@ -130,9 +189,8 @@
                 };
 
                 fetch("http://localhost:4000/api/workingtimes/" + workingtimes_id, requestOptions)
-                    .then(response => response.json())
+                    .then(response => response.text())
                     .then(result => {
-                            result = JSON.parse(result);
                             console.log(result);
                         this.getWorkingTimesData();
 
