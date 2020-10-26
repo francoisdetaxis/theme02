@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <!--      <a v-on:click="clickHome" class="navbar-brand">Time Manager</a>-->
       <router-link to="/" class="navbar-brand">Time Manager</router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
               aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">

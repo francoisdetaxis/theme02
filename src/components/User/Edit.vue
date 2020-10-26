@@ -88,7 +88,6 @@ export default {
             }
             //on on emet un event  successful-logout ---> on se deconnecte. Les donnes de l'utilisateur sont reset dans App.vue (le parent)
             this.$emit('successful-logout');
-            // this.$router.push("/");
           })
           .catch(error => console.log('error', error));
     }
