@@ -9,4 +9,4 @@ COPY package.json /app/package.json
 RUN apk add --no-cache git
 RUN npm install
 RUN npm install @vue/cli@3.7.0 -g
-EXPOSE 8080
+EXPOSE 8081
