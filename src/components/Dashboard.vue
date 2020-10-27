@@ -10,10 +10,12 @@
           <!--              <p>Max date: {{ maxDate == null ? "No data" : maxDate }}</p>-->
           <!--              <p>Min date: {{ minDate == null ? "No data" : minDate }}</p>-->
           <!--          <button v-on:click="getWorkingtimes" type="button">TEST</button>-->
-          <!--          {{ this.donutData }}-->
+                    {{ this.donutData }}
+                    {{ this.donutKey }}
+          <button v-on:click="forceAllRerender" type="button">Refresh all</button>
           <donut-chart
               id="donut"
-              :myKey="donutKey"
+              :key="donutKey"
               :data="donutData"
               colors='[ "#FF6384", "#36A2EB" ]'
               resize="true">
@@ -58,7 +60,7 @@
           <line-chart
               id="line"
               :data="lineData"
-              :myKey="lineKey"
+              :key="lineKey"
               xkey="year"
               ykeys='["value"]'
               colors='[ "#FF6384", "#36A2EB" ]'
@@ -70,7 +72,7 @@
           <bar-chart
               id="bar"
               :data="barData"
-              :myKey="barKey"
+              :key="barKey"
               xkey="year"
               ykeys='["and", "ios", "win"]'
               colors='[ "#FF6384", "#36A2EB" ]'
